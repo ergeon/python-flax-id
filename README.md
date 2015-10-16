@@ -54,12 +54,13 @@ the next 56 bits are random.
 This gives 2^56 possible unique ids per millisecond.
 
 The number 96 was chosen on the following grounds:
+
 1. It is divisible by 6, so can be rendered as base64-encoded string without
 padding
 2. It is divisible by 8, so it can be represented as a byte array
 3. It leaves enough room for the random part
 
-We save some time on the timestamp component by using a custom epoch start
+We save some space on the timestamp component by using a custom epoch start
 (we start on 2015-01-01), which allows us to use 40 bits, instead of 42 to
 represent the timestamp for the next 30+ years.
 
