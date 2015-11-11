@@ -31,10 +31,11 @@ $$ LANGUAGE plv8 VOLATILE STRICT;
 
 CREATE OR REPLACE function set_flax_id_before_insert() returns TRIGGER LANGUAGE plpgsql as $$
 begin
-    new.{field_name} = gen_flax_id();
+    if new.{field_name} IS NULL OR new.{field_name} = '' THEN
+       new.{field_name} = gen_flax_id();
+    end if;
     return new;
 end $$;
-
 
 CREATE TRIGGER flax_id_on_insert BEFORE INSERT ON {model_name} FOR EACH ROW EXECUTE PROCEDURE set_flax_id_before_insert();
 '''
