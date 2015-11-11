@@ -5,6 +5,7 @@
 # but it is fast enough to be used in most practical scenarios.
 
 import random
+import calendar
 import time
 from datetime import datetime
 
@@ -32,7 +33,7 @@ def get_flax_id_num(timestamp=None):
     or the current moment
     """
     # Get milliseconds fvalue for the epoch start
-    epoch_ms = int(time.mktime(EPOCH_START.timetuple()) * 1000)
+    epoch_ms = int(calendar.timegm(EPOCH_START.timetuple()) * 1000)
     # Get milliseconds from the start of the epoch
     ms = int((timestamp or time.time()) * 1000) - epoch_ms
     # Get random bits
