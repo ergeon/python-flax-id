@@ -10,9 +10,9 @@ class FlaxId(CharField):
 
     def __init__(self, *args, **kwargs):
         kwargs['max_length'] = 16
-        kwargs['blank'] = False
-        kwargs['null'] = False
         kwargs['editable'] = False
+        kwargs['blank'] = kwargs.get('blank', False)
+        kwargs['null'] = kwargs.get('null', False)
         super(FlaxId, self).__init__(*args, **kwargs)
 
     def pre_save(self, model_instance, add):

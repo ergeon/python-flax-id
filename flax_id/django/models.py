@@ -4,8 +4,7 @@ from .fields import FlaxId
 
 
 class FlaxModel(models.Model):
-    id = FlaxId(primary_key=True)
+    id = FlaxId()
 
     class Meta:
         abstract = True
-        ordering = ('id',)
