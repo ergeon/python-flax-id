@@ -13,6 +13,7 @@ class FlaxId(CharField):
         kwargs['editable'] = False
         kwargs['blank'] = kwargs.get('blank', False)
         kwargs['null'] = kwargs.get('null', False)
+        kwargs['unique'] = kwargs.get('unique', True)
         super(FlaxId, self).__init__(*args, **kwargs)
 
     def pre_save(self, model_instance, add):
