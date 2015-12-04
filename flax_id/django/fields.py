@@ -10,7 +10,7 @@ class FlaxId(CharField):
 
     def __init__(self, *args, **kwargs):
         kwargs['max_length'] = 16
-        kwargs['editable'] = False
+        kwargs['editable'] = kwargs.get('editable', False)
         kwargs['blank'] = kwargs.get('blank', False)
         kwargs['null'] = kwargs.get('null', False)
         kwargs['unique'] = kwargs.get('unique', True)
