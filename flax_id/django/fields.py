@@ -14,11 +14,12 @@ class FlaxId(CharField):
         kwargs['blank'] = kwargs.get('blank', False)
         kwargs['null'] = kwargs.get('null', False)
         kwargs['unique'] = kwargs.get('unique', True)
+        self._auto_generate = kwargs.pop('auto_generate', True)
         super(FlaxId, self).__init__(*args, **kwargs)
 
     def pre_save(self, model_instance, add):
         value = getattr(model_instance, self.attname, None)
-        if add and not value:
+        if self._auto_generate and add and not value:
             value = get_flax_id()
             setattr(model_instance, self.attname, value)
         return value
