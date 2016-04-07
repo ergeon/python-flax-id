@@ -12,6 +12,9 @@ from datetime import datetime
 # The parameters below are really the part of the algorithm and are
 # not expected to change
 
+# Flax ID Regex
+FLAX_ID_REGEX = '[-0-9A-Z_a-z]+'
+
 # Total number of bits
 TOTAL_BITS = 96
 # We start from the year ezHome has started
