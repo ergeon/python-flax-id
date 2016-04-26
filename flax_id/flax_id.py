@@ -9,6 +9,8 @@ import random
 import time
 from datetime import datetime
 
+from six.moves import range
+
 # The parameters below are really the part of the algorithm and are
 # not expected to change
 
@@ -56,7 +58,7 @@ def base64_lex_encode(num):
     # Convert the number to binary and pad the zeroes
     bnum = format(num, 'b').zfill(TOTAL_BITS)
     s = ''
-    for x in xrange(0, TOTAL_BITS, 6):
+    for x in range(0, TOTAL_BITS, 6):
         s += BASE64_ALPHABET[int(bnum[x:x + 6], 2)]
     return s
 
@@ -71,6 +73,10 @@ def get_flax_id(timestamp=None):
 
 if __name__ == '__main__':
     import timeit
-    print timeit.timeit('for x in range(1000): get_flax_id()',
-                        number=100,
-                        setup='from __main__ import get_flax_id')
+    print(
+        timeit.timeit(
+            'for x in range(1000): get_flax_id()',
+            number=100,
+            setup='from __main__ import get_flax_id'
+        )
+    )

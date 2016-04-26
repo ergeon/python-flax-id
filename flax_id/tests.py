@@ -3,15 +3,17 @@ import unittest
 
 from datetime import datetime
 
-from flax_id import get_flax_id
+from six.moves import range
+
+from .flax_id import get_flax_id
 
 
 class TestFlaxId(unittest.TestCase):
 
     def test_all_unique(self):
         # Not a rigorous test, just a sanity check
-        ids = [get_flax_id() for _ in xrange(1000)]
-        self.assertEquals(len(ids), len(set(ids)))
+        ids = [get_flax_id() for _ in range(1000)]
+        self.assertEqual(len(ids), len(set(ids)))
 
     def test_lexical_ordering(self):
         ids = []
@@ -22,4 +24,4 @@ class TestFlaxId(unittest.TestCase):
                         datetime(year, month, 1, 0, 0, second).timetuple()
                     )
                     ids.append(get_flax_id(timestamp))
-        self.assertEquals(ids, sorted(ids))
+        self.assertEqual(ids, sorted(ids))
