@@ -4,8 +4,8 @@
 # Clarity was chosen over the performance consideration,
 # but it is fast enough to be used in most practical scenarios.
 
-import random
 import calendar
+import random
 import time
 from datetime import datetime
 
@@ -26,8 +26,10 @@ RANDOM_BITS = TOTAL_BITS - TIMESTAMP_BITS
 
 
 # Modified Base 64 alphabet that preserves lexicographical ordering
-BASE64_ALPHABET = '-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'+ \
-                  '_abcdefghijklmnopqrstuvwxyz'
+BASE64_ALPHABET = (
+    '-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    '_abcdefghijklmnopqrstuvwxyz'
+)
 
 
 def get_flax_id_num(timestamp=None):
@@ -48,20 +50,21 @@ def get_flax_id_num(timestamp=None):
 
 def base64_lex_encode(num):
     """
-    Takes a number and encodes it as a string using the custom Base64
-    alphabet
+    Take a number and encode it as a string using the custom Base64
+    alphabet.
     """
     # Convert the number to binary and pad the zeroes
     bnum = format(num, 'b').zfill(TOTAL_BITS)
     s = ''
     for x in xrange(0, TOTAL_BITS, 6):
-        s += BASE64_ALPHABET[int(bnum[x:x+6], 2)]
+        s += BASE64_ALPHABET[int(bnum[x:x + 6], 2)]
     return s
+
 
 def get_flax_id(timestamp=None):
     """
-    Generate a string Flax ID, using the provided timestamp
-    or the current moment
+    Generate a string Flax ID, using the provided timestamp or the current
+    moment.
     """
     return base64_lex_encode(get_flax_id_num(timestamp))
 

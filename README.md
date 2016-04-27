@@ -1,5 +1,4 @@
-Flax ID
-=======
+# Flax ID
 
 Flax ID is an algorithm for generating unique distributed ids, made to be used
 at ergeon Inc.
@@ -9,8 +8,7 @@ For an overview of the idea, see, for example:
 
 1. [http://yellerapp.com/posts/2015-02-09-flake-ids.html](http://yellerapp.com/posts/2015-02-09-flake-ids.html)
 
-Design Goals
-------------
+## Design Goals
 
 We wanted an algorithm with the following characteristics:
 
@@ -22,7 +20,7 @@ We wanted an algorithm with the following characteristics:
 
 Multiple implementations exist but not all of them satisfy the above criteria,
 and the details of implementations vary wildly (most notably in the length and
-composition of the data), and we couldn't find a solution that was implemented 
+composition of the data), and we couldn't find a solution that was implemented
 the same way in different languages.
 
 Some of the candidates considered:
@@ -30,27 +28,26 @@ Some of the candidates considered:
 * Python: [simpleflake](https://github.com/SawdustSoftware/simpleflake)
 * Javascript: [flake-idgen](https://www.npmjs.com/package/flake-idgen)
 
-As a result, we decided to write our own algorithm, which gives us the 
+As a result, we decided to write our own algorithm, which gives us the
 following benefits:
 
 1. We control the exact parameters of the id generation (e.g. bit lengths)
-2. We can describe the algorithm very precisely, which makes writing 
+2. We can describe the algorithm very precisely, which makes writing
 implementations in different languages straightforward, as opposed to trying
 to decipher the intents of the algorithm creators
 
-We found inspiration (and some validation) for this approach in this article 
-by Firebase: 
+We found inspiration (and some validation) for this approach in this article
+by Firebase:
 [The 2^120 Ways to Ensure Unique Identifiers](https://www.firebase.com/blog/2015-02-11-firebase-unique-identifiers.html)
 
 TODO: Add explanation of what is wrong with UUID (spoiler: mostly ordering).
 
-Implementation Details
-----------------------
+## Implementation Details
 
 ### Composition
 
-The Flax ID contains 96 bits, of which first 40 bits are the timestamp, and 
-the next 56 bits are random. 
+The Flax ID contains 96 bits, of which first 40 bits are the timestamp, and
+the next 56 bits are random.
 This gives 2^56 possible unique ids per millisecond.
 
 The number 96 was chosen on the following grounds:
@@ -66,16 +63,16 @@ represent the timestamp for the next 30+ years.
 
 
     Here is the structure of the example id:
-    
+
     | 00000      10111001010010101010101001010001111   01110110100000001100101110001011101110011011110111000001 |
     | (padding)             timestamp                |                        randomness                        |
     |                  40                            |                            56                            |
-    
+
     (Padding is necessary when there is less than 40 bits in the timestamp, e.g. the elapsed time since the epoch
      is still relatively small)
-    
+
     And here is the rendering with our modified Base64 alphabet:
-    
+
     000001 011100 101001 010101 010100 101000 111101 110110 100000 001100 101110 001011 101110 011011 110111 000001
        0      R      d      K      J      c      x      q      V      B      i      A      i      Q      r      0
 
@@ -83,8 +80,8 @@ represent the timestamp for the next 30+ years.
 
 The canonical representation of the Flax ID is Base64-encoded, URL safe string
 (16 characters).
-We're using the slightly modified Base64 alphabet, which gives us the 
-guaranteed lexicographical ordering of the strings thus produced (Firebase does 
+We're using the slightly modified Base64 alphabet, which gives us the
+guaranteed lexicographical ordering of the strings thus produced (Firebase does
 the same)
 
     "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz"
@@ -93,10 +90,57 @@ the same)
 
 The algorithm is defined as follows:
 
-1. Take a timestamp, as a number of milliseconds since the beginning of our 
+1. Take a timestamp, as a number of milliseconds since the beginning of our
 epoch
 2. Combine it, by means of left binary shift with 56 random bits
-3. Represent the number as binary string, applying padding, if necessary, so 
+3. Represent the number as binary string, applying padding, if necessary, so
 the total number of bits is 96
+<<<<<<< HEAD
 4. Encode the binary string using the Base64 alphabet above, taking each 6 
 bits to represent a number 
+=======
+4. Encode the binary string using the Base64 alphabet above, taking each 6
+bits to represent a number
+
+## Development
+
+### Running tests
+
+As usual run::
+
+    $ make test
+
+### Publishing new release
+
+To publish new release you need to,
+
+1. Bump version number according to `SemVer <http://semver.org/>`_ in
+   ``flax_id/__init__.py`` file and put a log into *ChangeLog* section below
+2. Wait for your code is tested on Circle CI & merged to `master`
+3. Create new Git tag with version number as ``vX.Y.Z`` and push it to remote
+4. After, new release will build automatically on Circle CI and published
+   to private PyPI. Also you'll receive a notification in Slack #auto-packages
+   channel.
+
+#### Git Tag Snippet
+
+    git tag -a vX.Y.Z -m 'X.Y.Z Release'
+    git push --tags
+
+## Changelog
+
+### 1.0.3 (2016-04-07)
+
+- Added Flax ID regex to the repo
+
+### 1.0.2 (2015-12-10)
+
+- Some improvements
+
+### 1.0.1 (2015-12-08)
+
+- Added ability to disable auto generate ID to django field
+
+### 1.0.0 (2015-12-07)
+
+- Initial release

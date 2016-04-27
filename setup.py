@@ -8,7 +8,10 @@ from setuptools import setup
 
 
 DIRNAME = os.path.dirname(__file__)
-rel = lambda *parts: os.path.abspath(os.path.join(DIRNAME, *parts))
+
+
+def rel(*parts):
+    return os.path.abspath(os.path.join(DIRNAME, *parts))
 
 with codecs.open(rel('README.md'), encoding='utf-8') as handler:
     DESCRIPTION = handler.read()

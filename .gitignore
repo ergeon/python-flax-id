@@ -20,9 +20,11 @@ lib64/
 parts/
 sdist/
 var/
+venv/
 *.egg-info/
 .installed.cfg
 *.egg
+.python-version
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -31,6 +33,7 @@ var/
 *.spec
 
 # Installer logs
+.install
 pip-log.txt
 pip-delete-this-directory.txt
 

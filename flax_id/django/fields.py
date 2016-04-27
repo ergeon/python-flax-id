@@ -6,7 +6,7 @@ from ..flax_id import get_flax_id
 class FlaxId(CharField):
     """Django field to generate a simple flax id"""
 
-    description = "Flax ID field"
+    description = 'Flax ID field'
 
     def __init__(self, *args, **kwargs):
         kwargs['max_length'] = 16
