@@ -133,6 +133,10 @@ To publish new release you need to,
 
 ## Changelog
 
+### 1.1.0 (2016-04-27)
+
+- Added python3 support
+
 ### 1.0.3 (2016-04-07)
 
 - Added Flax ID regex to the repo
