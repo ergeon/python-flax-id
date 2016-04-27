@@ -102,11 +102,15 @@ bits to represent a number
 4. Encode the binary string using the Base64 alphabet above, taking each 6
 bits to represent a number
 
+## Installation
+
+    $ pip install --extra-index-url=http://pypi.ezhome.io/simple/ python-flax-id
+
 ## Development
 
 ### Running tests
 
-As usual run::
+As usual run:
 
     $ make test
 
@@ -114,13 +118,13 @@ As usual run::
 
 To publish new release you need to,
 
-1. Bump version number according to `SemVer <http://semver.org/>`_ in
-   ``flax_id/__init__.py`` file and put a log into *ChangeLog* section below
+1. Bump version number according to [SemVer](http://semver.org/) in
+   `flax_id/__init__.py` file and put a log into *ChangeLog* section below
 2. Wait for your code is tested on Circle CI & merged to `master`
-3. Create new Git tag with version number as ``vX.Y.Z`` and push it to remote
+3. Create new Git tag with version number as `vX.Y.Z` and push it to remote
 4. After, new release will build automatically on Circle CI and published
-   to private PyPI. Also you'll receive a notification in Slack #auto-packages
-   channel.
+   to private PyPI. Also you'll receive a notification in Slack
+   `#auto-packages` channel.
 
 #### Git Tag Snippet
 
