@@ -1,0 +1,28 @@
+machine:
+  environment:
+    COVERALLS_REPO_TOKEN: ZDlXwt8xK9p1aom9tWpf2t0Lq8o9czycS
+  python:
+    version: 3.5.5
+  timezone:
+    America/Los_Angeles
+
+dependencies:
+  override:
+    - pip install -U pip wheel
+    - make
+    - pyenv local 3.5.5
+
+test:
+  override:
+    - TEST_ARGS=--with-xunit make test
+
+  post:
+    - "coveralls || :"
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - "[ -r nosetests.xml ] && mv nosetests.xml $CIRCLE_TEST_REPORTS/junit/ || :"
+
+deployment:
+  release:
+    tag: /v\d+.\d+.\d+.*/
+    commands:
+      - make deploy
