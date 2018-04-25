@@ -1,6 +1,6 @@
 machine:
-  environment:
-    COVERALLS_REPO_TOKEN: ZDlXwt8xK9p1aom9tWpf2t0Lq8o9czycS
+  pre:
+    - cd /opt/circleci/.pyenv/plugins/python-build/../.. && git pull && cd -
   python:
     version: 3.5.5
   timezone:
@@ -17,7 +17,6 @@ test:
     - TEST_ARGS=--with-xunit make test
 
   post:
-    - "coveralls || :"
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - "[ -r nosetests.xml ] && mv nosetests.xml $CIRCLE_TEST_REPORTS/junit/ || :"
 
