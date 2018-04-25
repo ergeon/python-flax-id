@@ -54,6 +54,6 @@ setup(
         'Topic :: Utilities',
     ],
     keywords='ergeon flax flax-id',
-    license='Other/Proprietary License',
+    license='MIT License',
     platforms='any',
 )
