@@ -10,7 +10,7 @@ dependencies:
   override:
     - pip install -U pip wheel
     - make
-    - pyenv local 2.7.11 3.5.5
+    - pyenv local 3.5.5
 
 test:
   override:
