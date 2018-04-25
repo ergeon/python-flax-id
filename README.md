@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/ergeon/python-flax-id.svg?style=svg)](https://circleci.com/gh/ergeon/python-flax-id)
+
 # Flax ID
 
 Flax ID is an algorithm for generating unique distributed ids, made to be used
