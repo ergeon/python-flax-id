@@ -97,10 +97,6 @@ epoch
 2. Combine it, by means of left binary shift with 56 random bits
 3. Represent the number as binary string, applying padding, if necessary, so
 the total number of bits is 96
-<<<<<<< HEAD
-4. Encode the binary string using the Base64 alphabet above, taking each 6 
-bits to represent a number 
-=======
 4. Encode the binary string using the Base64 alphabet above, taking each 6
 bits to represent a number
 
