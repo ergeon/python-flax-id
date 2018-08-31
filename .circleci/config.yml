@@ -1,0 +1,48 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6.3
+        environment:
+          TZ: "/usr/share/zoneinfo/America/Los_Angeles"
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt-get update
+            sudo pip install -U pip wheel
+            # install pyenv
+            curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+            export PATH="/home/circleci/.pyenv/bin:/home/circleci/.pyenv/shims/:$PATH"
+            pyenv install 3.5.5
+            python -m venv venv
+            make
+            pyenv local 3.5.5
+
+      - run:
+          name: Run Tests
+          command: |
+            export PATH="/home/circleci/.pyenv/bin:/home/circleci/.pyenv/shims/:$PATH"
+            TEST_ARGS=--with-xunit make test
+            mkdir -p test_reports/junit/
+            [ -r nosetests.xml ] && mv nosetests.xml test_reports/junit/ || :
+
+      - run:
+          name: Deploy
+          command: |
+            if [ "${CIRCLE_TAG}" != "" ]; then
+              make deploy
+            fi
+
+workflows:
+  version: 2
+  common-build:
+    # will run for every command AND for every tag that fits the regex
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /v\d+.\d+.\d+.*/
