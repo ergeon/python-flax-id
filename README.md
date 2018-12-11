@@ -121,8 +121,7 @@ To publish new release you need to,
 2. Wait for your code is tested on Circle CI & merged to `master`
 3. Create new Git tag with version number as `vX.Y.Z` and push it to remote
 4. After, new release will build automatically on Circle CI and published
-   to private PyPI. Also you'll receive a notification in Slack
-   `#auto-packages` channel.
+   to PyPI.
 
 #### Git Tag Snippet
 
