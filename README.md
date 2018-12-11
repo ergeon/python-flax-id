@@ -102,7 +102,7 @@ bits to represent a number
 
 ## Installation
 
-    $ pip install --extra-index-url=http://pypi.ezhome.io/simple/ python-flax-id
+    $ pip install python-flax-id
 
 ## Development
 
